@@ -20,7 +20,7 @@ class User(BaseModel):
     username: str
     email: EmailStr
     password: str
-    type: Literal["patient", "therapist"]
+    type: Literal["patient","therapist"]
 
     class Config:
         schema_extra = {
@@ -29,6 +29,38 @@ class User(BaseModel):
                 "email": "APM@gmail.com",
                 "password": "21345",
                 "type": "patient"
+            }
+        }
+
+class Therapist(BaseModel):
+    username: str
+    email: EmailStr
+    password: str
+    type: Literal["therapist"]
+    first_name: str
+    last_name: str
+    dob: Optional[str] = None
+    blood_grp: Optional[str] = None
+    height: Optional[int] = None
+    weight: Optional[int] = None
+    gender: Optional[str] = None
+    phone_number: Optional[str] = None
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "username": "therapist123",
+                "email": "therapist@example.com",
+                "password": "securepassword123",
+                "type": "therapist",
+                "first_name": "Jane",
+                "last_name": "Doe",
+                "dob": "1985-03-25",
+                "blood_grp": "A+",
+                "height": 165,
+                "weight": 60,
+                "gender": "female",
+                "phone_number": "9876543210"
             }
         }
 
