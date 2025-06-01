@@ -104,6 +104,17 @@ async def get_therapist_by_email(email: str):
 
     return User(**therapist)
 
+
+@app.get("/getFullTherapist/{email}", response_model=Therapist)
+async def get_full_therapist(email: str):
+    therapist = await therapist_collection.find_one({"email": email, "type": "therapist"})
+
+    if not therapist:
+        raise HTTPException(status_code=404, detail="Therapist not found")
+
+    therapist.pop("_id", None)  # remove MongoDB's ObjectId if present
+    return Therapist(**therapist)
+
 @app.get("/patient-data", response_model=PatientFlowData)
 async def get_patient_data(email: str):
     patient = await patient_data_collection.find_one({"email": email})
