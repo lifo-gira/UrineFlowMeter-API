@@ -66,13 +66,15 @@ class Therapist(BaseModel):
 
 class FlowTestRecord(BaseModel):
     device_name: str
-    date_of_test: str
-    total_voided_volume_ml: float  # Total urine volume voided in ml
-    peak_flow_rate_ml_s: float  # Peak urine flow rate in ml/sec
-    average_flow_rate_ml_s: float  # Average flow rate in ml/sec
-    voiding_time_sec: float  # Total time taken to void in seconds
-    flow_pattern: str  # Pattern type e.g. normal, intermittent, obstructed
-    raw_values: List[float]  # Live graph data - weight or volume vs time
+    date: str
+    maximum_flow_rate: float  # Max flow rate (replaces peak_flow_rate)
+    average_flow_rate: float  # Average flow rate
+    voided_volume: float      # Total urine volume voided in ml
+    flow_time: float          # Duration of flow in seconds
+    voiding_time: float       # Time taken to start voiding
+    peak_flow_rate: float     # Time of peak flow
+    flow_pattern: str         # e.g., normal, obstructed, intermittent
+    raw_values: List[float]   # Live graph data - volume or rate vs time
 
 class PatientFlowData(BaseModel):
     user_id: str
@@ -110,13 +112,14 @@ class PatientFlowData(BaseModel):
                     {
                         "device_name": "UrineFlowMeter",
                         "date": "2025-05-22",
-                        "total_voided_volume_ml": 310.5,
-                        "peak_flow_rate_ml_s": 16.8,
-                        "average_flow_rate_ml_s": 11.4,
-                        "voiding_time_sec": 27.2,
+                        "maximum_flow_rate": 310.5,
+                        "average_flow_rate": 16.8,
+                        "voided_volume": 11.4,
+                        "flow_time": 27.2,
+                        "voiding_time": 11.4,
+                        "peak_flow_rate": 27.2,
                         "flow_pattern": "normal",
                         "raw_values": [0, 15, 32, 55, 74, 88, 102, 110, 120, 125, 130, 131, 131, 131],
-                        "notes": "Flow rate and pattern within normal range."
                     }
                 ]
             }
